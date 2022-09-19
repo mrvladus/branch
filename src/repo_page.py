@@ -60,7 +60,6 @@ class RepoPage(Adw.PreferencesGroup):
                 self.branches_list[0] = branch.lstrip("*")
         # Set current branch
         self.current_branch = self.branches_list[0]
-        print(self.branches_list)
 
     def on_branch_changed(self, btn, row) -> None:
         """
