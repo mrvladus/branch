@@ -84,8 +84,8 @@ class RepoPage(Adw.PreferencesGroup):
         )
         self.clear_merge_row()
         self.update_merge_row()
-        for i in self.branches_rows:
-            self.branches_row.remove(i)
+        for i in range(1, len(self.branches_rows)):
+            self.branches_row.remove(self.branches_rows[i])
         self.branches_rows.clear()
         self.update_branches_row()
         show_message(out)
