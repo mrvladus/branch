@@ -16,35 +16,31 @@ class RepoPage(Adw.PreferencesGroup):
 
     push_btn = Gtk.Template.Child()
     commit_msg = Gtk.Template.Child()
-    branches = Gtk.Template.Child()
+    branches_row = Gtk.Template.Child()
     merge_row = Gtk.Template.Child()
 
     def __init__(self, path: str):
         super().__init__()
         self.path = path
         self.props.description += self.path
-        self.init_branches()
+        self.update_branches_row()
         self.update_merge_row()
 
-    def init_branches(self) -> None:
-        """
-        Add list button as suffix to the branch row.
-        Create label instead of list button if branch is only one.
-        """
+    def update_branches_row(self) -> None:
         self.get_branches()
+        self.branches_row.props.title = self.branches_list[0]
         if len(self.branches_list) == 1:
-            self.branch_list_btn = Gtk.Label(label=self.current_branch)
-            self.branches.props.subtitle = ""
-        else:
-            self.branch_list_btn = Gtk.ComboBoxText(valign=Gtk.Align.CENTER)
-            # Add branches to list button
-            for branch in self.branches_list:
-                self.branch_list_btn.append_text(branch)
-            # Set current branch active
-            self.branch_list_btn.set_active(0)
-            self.branch_list_btn.connect("popup", self.on_branch_popup)
-            self.branch_list_btn.connect("changed", self.on_branch_changed)
-        self.branches.add_suffix(self.branch_list_btn)
+            return
+        self.branches_rows = []
+        for branch in self.branches_list:
+            btn = Gtk.Button(
+                icon_name="object-select-symbolic", valign=Gtk.Align.CENTER
+            )
+            row = Adw.ActionRow(title=branch, activatable_widget=btn)
+            row.add_suffix(btn)
+            self.branches_rows.append(row)
+            btn.connect("clicked", self.on_branch_changed, row)
+            self.branches_row.add_row(row)
 
     def get_branches(self):
         """
@@ -63,6 +59,35 @@ class RepoPage(Adw.PreferencesGroup):
                 self.branches_list[0] = branch.lstrip("*")
         # Set current branch
         self.current_branch = self.branches_list[0]
+        print(self.branches_list)
+
+    def on_branch_changed(self, btn, row) -> None:
+        """
+        Commit changes and change branch.
+        """
+        settings = get_settings()
+        if settings["email"] == "":
+            show_toast(_("Email is not set"))
+            return
+        if settings["name"] == "":
+            show_toast(_("Name is not set"))
+            return
+        self.current_branch = row.props.title
+        self.branches_row.props.expanded = False
+        self.branches_row.props.title = row.props.title
+        subprocess.getoutput(
+            f"cd {self.path} && git add -A && git -c user.name='{settings['name']}' -c user.email='{settings['email']}' commit -a --allow-empty-message -m ''"
+        )
+        out = subprocess.getoutput(
+            f"cd {self.path} && git checkout {self.current_branch}"
+        )
+        self.clear_merge_row()
+        self.update_merge_row()
+        for i in self.branches_rows:
+            self.branches_row.remove(i)
+        self.branches_row.clear()
+        self.update_branches_row()
+        show_message(out)
 
     def update_merge_row(self):
         """
@@ -122,37 +147,6 @@ class RepoPage(Adw.PreferencesGroup):
     def merge_end(self, msg):
         self.merge_row.props.sensitive = True
         show_message(msg)
-
-    def on_branch_popup(self, widget: Gtk.ComboBoxText):
-        """
-        Remember previously active branch.
-        """
-        self.prev_branch = widget.get_active_text()
-        self.prev_branch_id = widget.get_active_id()
-
-    def on_branch_changed(self, widget: Gtk.ComboBoxText) -> None:
-        """
-        Commit changes and change branch.
-        """
-        self.current_branch = widget.get_active_text()
-        settings = get_settings()
-        if settings["email"] == "":
-            show_toast(_("Email is not set"))
-            widget.set_active_id(self.prev_branch_id)
-            return
-        if settings["name"] == "":
-            show_toast(_("Name is not set"))
-            widget.set_active_id(self.prev_branch_id)
-            return
-        subprocess.getoutput(
-            f"cd {self.path} && git add -A && git -c user.name='{settings['name']}' -c user.email='{settings['email']}' commit -a --allow-empty-message -m ''"
-        )
-        out = subprocess.getoutput(
-            f"cd {self.path} && git checkout {self.current_branch}"
-        )
-        self.clear_merge_row()
-        self.update_merge_row()
-        show_message(out)
 
     @Gtk.Template.Callback()
     def on_commit_btn_clicked(self, btn: Gtk.Button) -> None:
