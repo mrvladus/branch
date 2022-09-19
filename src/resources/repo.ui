@@ -13,7 +13,7 @@
     <!-- Branches -->
     <child>
       <object id="branches_row" class="AdwExpanderRow">
-        <property name="subtitle" translatable="yes">Current branch</property>
+        <property name="subtitle" translatable="yes">Select current branch</property>
       </object>
     </child>
 

@@ -40,7 +40,8 @@ class RepoPage(Adw.PreferencesGroup):
             row.add_suffix(btn)
             self.branches_rows.append(row)
             btn.connect("clicked", self.on_branch_changed, row)
-            self.branches_row.add_row(row)
+            if branch != self.current_branch:
+                self.branches_row.add_row(row)
 
     def get_branches(self):
         """
@@ -85,7 +86,7 @@ class RepoPage(Adw.PreferencesGroup):
         self.update_merge_row()
         for i in self.branches_rows:
             self.branches_row.remove(i)
-        self.branches_row.clear()
+        self.branches_rows.clear()
         self.update_branches_row()
         show_message(out)
 
