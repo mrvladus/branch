@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="branch">
+
+  <template class="RepoPage" parent="AdwPreferencesGroup">
+    <property name="description" translatable="yes">Path: </property>
+    <property name="vexpand">True</property>
+    <property name="hexpand">True</property>
+    <property name="margin-top">20</property>
+    <property name="margin-bottom">20</property>
+    <property name="margin-start">20</property>
+    <property name="margin-end">20</property>
+
+    <!-- Branches -->
+    <child>
+      <object id="branches" class="AdwActionRow">
+        <property name="title" translatable="yes">Branch</property>
+        <property name="subtitle" translatable="yes">Select current branch</property>
+      </object>
+    </child>
+
+    <!-- Merge -->
+    <child>
+      <object id="merge_row" class="AdwExpanderRow">
+        <property name="title" translatable="yes">Merge with...</property>
+      </object>
+    </child>
+
+    <!-- Commit message -->
+    <child>
+      <object id="commit_msg" class="AdwEntryRow">
+        <property name="title" translatable="yes">Commit message</property>
+      </object>
+    </child>
+
+    <!-- Buttons -->
+    <child>
+      <object class="GtkBox">
+        <property name="orientation">horizontal</property>
+        <property name="margin-top">20</property>
+        <property name="spacing">20</property>
+        <property name="halign">center</property>
+
+        <!-- Commit button -->
+        <child>
+          <object id="commit_btn" class="GtkButton">
+            <signal name="clicked" handler="on_commit_btn_clicked" />
+            <child>
+              <object class="AdwButtonContent">
+                <property name="label" translatable="yes">Commit</property>
+                <property name="icon-name">document-save-symbolic</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <!-- Push button -->
+        <child>
+          <object id="push_btn" class="GtkButton">
+            <signal name="clicked" handler="on_push_btn_clicked" />
+            <child>
+              <object class="AdwButtonContent">
+                <property name="label" translatable="yes">Push</property>
+                <property name="icon-name">send-to-symbolic</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+      </object>
+    </child>
+  </template>
+</interface>

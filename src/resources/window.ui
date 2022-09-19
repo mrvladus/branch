@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="branch">
+
+  <!-- Main menu -->
+  <menu id="primary_menu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Settings</attribute>
+        <attribute name="action">app.settings</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">About Branch</attribute>
+        <attribute name="action">app.about</attribute>
+      </item>
+    </section>
+  </menu>
+
+  <template class="MainWindow" parent="AdwApplicationWindow">
+    <property name="title">Branch</property>
+    <property name="width-request">400</property>
+    <property name="height-request">300</property>
+    <signal name="close-request" handler="on_close_request" />
+    <property name="content">
+      <object id="toast_overlay" class="AdwToastOverlay">
+        <property name="child">
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+
+            <!-- Header Bar -->
+            <child>
+              <object id="headerbar" class="AdwHeaderBar">
+
+                <!-- Add tab button -->
+                <child type="start">
+                  <object id="add_btn" class="GtkButton">
+                    <property name="icon-name">tab-new-symbolic</property>
+                    <property name="tooltip-text" translatable="yes">Add repository</property>
+                    <signal name="clicked" handler="on_add_btn_clicked" />
+                  </object>
+                </child>
+
+                <!-- Menu button -->
+                <child type="end">
+                  <object id="menu_btn" class="GtkMenuButton">
+                    <property name="icon-name">open-menu-symbolic</property>
+                    <property name="menu-model">primary_menu</property>
+                    <property name="tooltip-text" translatable="yes">Menu</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+
+            <!-- Window content -->
+            <child>
+              <object class="GtkBox">
+                <property name="orientation">vertical</property>
+
+                <!-- Status page -->
+                <child>
+                  <object id="status_page" class="AdwStatusPage">
+                    <property name="title" translatable="yes">No repositories found</property>
+                    <property name="description" translatable="yes">Add new one with "+"</property>
+                    <property name="icon-name">system-search-symbolic</property>
+                    <property name="visible">False</property>
+                    <style>
+                      <class name="compact" />
+                    </style>
+                  </object>
+                </child>
+
+                <!-- Tab Bar -->
+                <child>
+                  <object id="tab_bar" class="AdwTabBar">
+                    <property name="view">tab_view</property>
+                    <property name="autohide">False</property>
+                  </object>
+                </child>
+
+                <!-- Tab View -->
+                <child>
+                  <object id="tab_view" class="AdwTabView">
+                    <signal name="close-page" handler="on_close_page" />
+                  </object>
+                </child>
+
+              </object>
+            </child>
+          </object>
+        </property>
+      </object>
+    </property>
+
+    <!-- About window -->
+    <object id="about_window" class="AdwAboutWindow">
+      <property name="hide-on-close">True</property>
+      <property name="destroy-with-parent">True</property>
+      <property name="application-name">Branch</property>
+      <property name="developer-name">Vlad Krupinsky</property>
+      <property name="copyright">© 2022 Vlad Krupinsky</property>
+      <property name="license-type">GTK_LICENSE_GPL_3_0</property>
+      <property name="website">https://github.com/mrvladus/branch</property>
+      <property name="application-icon">com.github.mrvladus.Branch</property>
+      <property name="version">1.0</property>
+      <property name="comments" translatable="yes">
+        Quikly manage yor git repositories.
+        Commit, push and change branches.
+
+        This application use:
+        - GTK-4
+        - libadwaita 1.2 
+        - Python 3.10
+        - git
+      </property>
+      <property name="release-notes"></property>
+    </object>
+
+  </template>
+</interface>

@@ -1,0 +1,6 @@
+src/settings.py
+src/repos_list.py
+src/headerbar.py
+src/resources/window.ui
+src/resources/settings.ui
+data/com.github.mrvladus.Branch.desktop.in

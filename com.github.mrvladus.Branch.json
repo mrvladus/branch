@@ -1,0 +1,91 @@
+{
+    "app-id": "com.github.mrvladus.Branch",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "42",
+    "sdk": "org.gnome.Sdk",
+    "command": "branch",
+    "finish-args": [
+        "--filesystem=home",
+        "--share=network",
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--device=dri",
+        "--socket=wayland"
+    ],
+    "cleanup": [
+        "/include",
+        "/lib/pkgconfig",
+        "/man",
+        "/share/doc",
+        "/share/gtk-doc",
+        "/share/man",
+        "/share/pkgconfig",
+        "*.la",
+        "*.a"
+    ],
+    "modules": [
+        {
+            "name": "libsass",
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/lazka/libsass/archive/refs/heads/meson.zip",
+                    "sha256": "3692f4d1ac10afe5645a6271d25d53572cd10fcc3f7f12d4fc05ff630d0b97c0"
+                }
+            ]
+        },
+        {
+            "name": "sassc",
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/lazka/sassc/archive/refs/heads/meson.zip",
+                    "sha256": "028ef1cce6037db3c69f889951293b7865b74c20c1ee9d2215df79ca7d4a9e61"
+                }
+            ]
+        },
+        {
+            "name": "libadwaita",
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Dtests=false",
+                "-Dexamples=false",
+                "-Dvapi=false"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/libadwaita.git",
+                    "branch": "main"
+                }
+            ]
+        },
+        {
+            "name": "git",
+            "buildsystem": "simple",
+            "build-commands": [
+                "make prefix=/app install"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://www.kernel.org/pub/software/scm/git/git-2.37.3.tar.gz",
+                    "sha256": "181f65587155ea48c682f63135678ec53055adf1532428752912d356e46b64a8"
+                }
+            ]
+        },
+        {
+            "name": "branch",
+            "builddir": true,
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": "."
+                }
+            ]
+        }
+    ]
+}

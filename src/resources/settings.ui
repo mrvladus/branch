@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface domain="branch">
+  <template class="SettingsWindow" parent="AdwPreferencesWindow">
+    <property name="hide-on-close">true</property>
+    <property name="destroy-with-parent">true</property>
+    <child>
+      <object class="AdwPreferencesPage">
+
+        <!-- Git Credentials -->
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">Git credentials</property>
+
+            <!-- Reset button -->
+            <child type="header-suffix">
+              <object id="reset_git_btn" class="GtkButton">
+                <property name="tooltip-text" translatable="yes">Reset</property>
+                <property name="icon-name">view-refresh-symbolic</property>
+                <signal name="clicked" handler="on_reset_git_btn_clicked" />
+                <style>
+                  <class name="circular" />
+                </style>
+              </object>
+            </child>
+
+            <!-- Email -->
+            <child>
+              <object id="email" class="AdwEntryRow">
+                <property name="title" translatable="yes">Email</property>
+                <signal name="changed" handler="on_email_changed" />
+              </object>
+            </child>
+
+            <!-- Name -->
+            <child>
+              <object id="name" class="AdwEntryRow">
+                <property name="title" translatable="yes">Name</property>
+                <signal name="changed" handler="on_name_changed" />
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <!-- GitHub Credentials -->
+        <child>
+          <object class="AdwPreferencesGroup">
+            <property name="title" translatable="yes">GitHub credentials</property>
+
+            <!-- Reset button -->
+            <child type="header-suffix">
+              <object id="reset_github_btn" class="GtkButton">
+                <property name="tooltip-text" translatable="yes">Reset</property>
+                <property name="icon-name">view-refresh-symbolic</property>
+                <signal name="clicked" handler="on_reset_github_btn_clicked" />
+                <style>
+                  <class name="circular" />
+                </style>
+              </object>
+            </child>
+
+            <!-- GitHub username -->
+            <child>
+              <object id="github_username" class="AdwEntryRow">
+                <property name="title" translatable="yes">GitHub Username</property>
+                <signal name="changed" handler="on_github_username_changed" />
+              </object>
+            </child>
+
+            <!-- GitHub token -->
+            <child>
+              <object id="github_token" class="AdwPasswordEntryRow">
+                <property name="title" translatable="yes">Token</property>
+                <signal name="changed" handler="on_github_token_changed" />
+              </object>
+            </child>
+
+            <!-- Info link -->
+            <child>
+              <object id="github_token_link" class="GtkLinkButton">
+                <property name="label" translatable="yes">How to get GitHub token?</property>
+                <property name="uri">https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token</property>
+              </object>
+            </child>
+
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

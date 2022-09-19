@@ -1,0 +1,4 @@
+.flatpak-builder/
+.vscode/
+__pycache__/
+.build/
