@@ -1,65 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface domain="branch">
 
-  <template class="RepoPage" parent="AdwPreferencesGroup">
-    <property name="description" translatable="yes">Path: </property>
+  <template class="RepoPage" parent="AdwPreferencesPage">
     <property name="vexpand">True</property>
     <property name="hexpand">True</property>
-    <property name="margin-top">20</property>
+    <!-- <property name="margin-top">20</property>
     <property name="margin-bottom">20</property>
     <property name="margin-start">20</property>
-    <property name="margin-end">20</property>
+    <property name="margin-end">20</property> -->
 
-    <!-- Branches -->
+    <!-- Branches group -->
     <child>
-      <object id="branches_row" class="AdwExpanderRow">
-        <property name="subtitle" translatable="yes">Select current branch</property>
-      </object>
-    </child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Branches</property>
 
-    <!-- Merge -->
-    <child>
-      <object id="merge_row" class="AdwExpanderRow">
-        <property name="title" translatable="yes">Merge with...</property>
-      </object>
-    </child>
-
-    <!-- Commit message -->
-    <child>
-      <object id="commit_msg" class="AdwEntryRow">
-        <property name="title" translatable="yes">Commit message</property>
-      </object>
-    </child>
-
-    <!-- Buttons -->
-    <child>
-      <object class="GtkBox">
-        <property name="orientation">horizontal</property>
-        <property name="margin-top">20</property>
-        <property name="spacing">20</property>
-        <property name="halign">center</property>
-
-        <!-- Commit button -->
+        <!-- Branches row -->
         <child>
-          <object id="commit_btn" class="GtkButton">
-            <signal name="clicked" handler="on_commit_btn_clicked" />
-            <child>
-              <object class="AdwButtonContent">
-                <property name="label" translatable="yes">Commit</property>
+          <object id="branches_row" class="AdwExpanderRow">
+            <property name="subtitle" translatable="yes">Select current branch</property>
+          </object>
+        </child>
+
+        <!-- Merge row -->
+        <child>
+          <object id="merge_row" class="AdwExpanderRow">
+            <property name="title" translatable="yes">Merge with...</property>
+          </object>
+        </child>
+
+      </object>
+    </child>
+
+    <!-- Commit group -->
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Commit</property>
+
+        <!-- Commit message row -->
+        <child>
+          <object id="commit_msg" class="AdwEntryRow">
+            <property name="title" translatable="yes">Commit message</property>
+          </object>
+        </child>
+
+        <!-- Commit button row -->
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Commit</property>
+            <property name="subtitle" translatable="yes">Click to commit changes</property>
+            <property name="activatable-widget">commit_btn</property>
+
+            <!-- Commit button -->
+            <child type="suffix">
+              <object id="commit_btn" class="GtkButton">
+                <signal name="clicked" handler="on_commit_btn_clicked" />
                 <property name="icon-name">document-save-symbolic</property>
-              </object>
-            </child>
-          </object>
-        </child>
-
-        <!-- Push button -->
-        <child>
-          <object id="push_btn" class="GtkButton">
-            <signal name="clicked" handler="on_push_btn_clicked" />
-            <child>
-              <object class="AdwButtonContent">
-                <property name="label" translatable="yes">Push</property>
-                <property name="icon-name">send-to-symbolic</property>
+                <property name="valign">center</property>
               </object>
             </child>
           </object>
@@ -67,5 +63,33 @@
 
       </object>
     </child>
+
+    <!-- Push group -->
+    <child>
+      <object class="AdwPreferencesGroup">
+        <property name="title" translatable="yes">Push</property>
+
+        <!-- Push button row -->
+        <child>
+          <object class="AdwActionRow">
+            <property name="title" translatable="yes">Push</property>
+            <property name="subtitle" translatable="yes">Click to push changes</property>
+            <property name="activatable-widget">push_btn</property>
+
+            <!-- Push button -->
+            <child type="suffix">
+              <object id="push_btn" class="GtkButton">
+                <signal name="clicked" handler="on_push_btn_clicked" />
+                <property name="icon-name">send-to-symbolic</property>
+                <property name="valign">center</property>
+              </object>
+            </child>
+
+          </object>
+        </child>
+
+      </object>
+    </child>
+
   </template>
 </interface>

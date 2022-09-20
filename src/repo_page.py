@@ -11,7 +11,7 @@ from .utils import Spinner, show_toast, show_message, threaded, threaded_callbac
 
 
 @Gtk.Template(resource_path="/com/github/mrvladus/branch/repo.ui")
-class RepoPage(Adw.PreferencesGroup):
+class RepoPage(Adw.PreferencesPage):
     __gtype_name__ = "RepoPage"
 
     push_btn = Gtk.Template.Child()
@@ -22,7 +22,6 @@ class RepoPage(Adw.PreferencesGroup):
     def __init__(self, path: str):
         super().__init__()
         self.path = path
-        self.props.description += self.path
         self.update_branches_row()
         self.update_merge_row()
 
