@@ -71,7 +71,7 @@
 
         <!-- Push button row -->
         <child>
-          <object class="AdwActionRow">
+          <object id="push_row" class="AdwActionRow">
             <property name="title" translatable="yes">Push</property>
             <property name="subtitle" translatable="yes">Click to push changes</property>
             <property name="activatable-widget">push_btn</property>

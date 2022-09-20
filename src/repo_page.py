@@ -14,6 +14,7 @@ from .utils import Spinner, show_toast, show_message, threaded, threaded_callbac
 class RepoPage(Adw.PreferencesPage):
     __gtype_name__ = "RepoPage"
 
+    push_row = Gtk.Template.Child()
     push_btn = Gtk.Template.Child()
     commit_msg = Gtk.Template.Child()
     branches_row = Gtk.Template.Child()
@@ -187,7 +188,8 @@ class RepoPage(Adw.PreferencesPage):
         if "github" not in origin:
             show_toast(_("Must be a GitHub repo to push"))
             return
-        btn.props.sensitive = False
+        self.push_btn.props.sensitive = False
+        self.push_row.props.title = _("Pushing to ") + origin
         self.push_start(origin, settings)
 
     @threaded
@@ -206,6 +208,7 @@ class RepoPage(Adw.PreferencesPage):
         """
         show_message(out)
         self.push_btn.props.sensitive = True
+        self.push_row.props.title = _("Click to push changes")
 
     def delete(self) -> None:
         """
