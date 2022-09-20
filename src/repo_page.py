@@ -189,7 +189,7 @@ class RepoPage(Adw.PreferencesPage):
             show_toast(_("Must be a GitHub repo to push"))
             return
         self.push_btn.props.sensitive = False
-        self.push_row.props.title = _("Pushing to ") + origin
+        self.push_row.props.subtitle = _("Pushing to ") + origin
         self.push_start(origin, settings)
 
     @threaded
@@ -208,7 +208,7 @@ class RepoPage(Adw.PreferencesPage):
         """
         show_message(out)
         self.push_btn.props.sensitive = True
-        self.push_row.props.title = _("Click to push changes")
+        self.push_row.props.subtitle = _("Click to push changes")
 
     def delete(self) -> None:
         """
