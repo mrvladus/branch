@@ -50,7 +50,7 @@ class Application(Adw.Application):
             self.set_accels_for_action(f"app.{name}", shortcuts)
 
 
-@Gtk.Template(resource_path="/com/github/mrvladus/branch/window.ui")
+@Gtk.Template(resource_path="/com/github/mrvladus/branch/ui/window.ui")
 class MainWindow(Adw.ApplicationWindow):
     __gtype_name__ = "MainWindow"
 

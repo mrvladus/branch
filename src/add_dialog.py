@@ -7,7 +7,7 @@ from .utils import show_toast
 from .repo_page import RepoPage
 
 
-@Gtk.Template(resource_path="/com/github/mrvladus/branch/add_dialog.ui")
+@Gtk.Template(resource_path="/com/github/mrvladus/branch/ui/add_dialog.ui")
 class AddDialog(Gtk.FileChooserDialog):
     __gtype_name__ = "AddDialog"
 

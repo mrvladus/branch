@@ -54,7 +54,7 @@ def set_setting(setting: str, value: str) -> None:
         json.dump(new_settings, f)
 
 
-@Gtk.Template(resource_path="/com/github/mrvladus/branch/settings.ui")
+@Gtk.Template(resource_path="/com/github/mrvladus/branch/ui/settings.ui")
 class SettingsWindow(Adw.PreferencesWindow):
     __gtype_name__ = "SettingsWindow"
 

@@ -1,16 +1,13 @@
-import os
 import subprocess
-from typing import Callable
-from gi.repository import Adw, Gtk, Gio
+from gi.repository import Adw, Gtk
 from gettext import gettext as _
-
 
 from .data import data
 from .settings import get_settings
-from .utils import Spinner, show_toast, show_message, threaded, threaded_callback
+from .utils import show_toast, show_message, threaded, threaded_callback
 
 
-@Gtk.Template(resource_path="/com/github/mrvladus/branch/repo.ui")
+@Gtk.Template(resource_path="/com/github/mrvladus/branch/ui/repo_page.ui")
 class RepoPage(Adw.PreferencesPage):
     __gtype_name__ = "RepoPage"
 
@@ -92,6 +89,14 @@ class RepoPage(Adw.PreferencesPage):
         self.update_branches_row()
         show_message(out)
 
+    @Gtk.Template.Callback()
+    def on_add_branch_btn_clicked(self, btn):
+        # out = subprocess.getoutput(
+        #     f"cd {self.path} && git checkout -b {new_branch}"
+        # )
+        # show_message(out)
+        pass
+
     def update_merge_row(self):
         """
         Fills merge expander row.
@@ -143,7 +148,6 @@ class RepoPage(Adw.PreferencesPage):
         subprocess.getoutput(
             f"cd {self.path} && git add -A && git -c user.name='{settings['name']}' -c user.email='{settings['email']}' commit -m '{_('Merge with')} {branch}'"
         )
-        # Merge
         out = subprocess.getoutput(f"cd {self.path} && git merge {branch}")
         threaded_callback(self.merge_end, out)
 
@@ -167,7 +171,7 @@ class RepoPage(Adw.PreferencesPage):
             f"cd {self.path} && git add -A && git -c user.name='{settings['name']}' -c user.email='{settings['email']}' commit -m '{self.commit_msg.props.text}'"
         )
         show_message(out)
-        # Set widgets state
+        # Clear message
         self.commit_msg.props.text = ""
 
     @Gtk.Template.Callback()

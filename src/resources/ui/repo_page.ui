@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface domain="branch">
-
   <template class="RepoPage" parent="AdwPreferencesPage">
-    <property name="vexpand">True</property>
-    <property name="hexpand">True</property>
-    <!-- <property name="margin-top">20</property>
-    <property name="margin-bottom">20</property>
-    <property name="margin-start">20</property>
-    <property name="margin-end">20</property> -->
 
     <!-- Branches group -->
     <child>
       <object class="AdwPreferencesGroup">
         <property name="title" translatable="yes">Branches</property>
+
+        <!-- Add branch button -->
+        <child type="header-suffix">
+          <object id="add_branch_btn" class="GtkButton">
+            <signal name="clicked" handler="on_add_branch_btn_clicked" />
+            <property name="tooltip-text" translatable="yes">Add new branch</property>
+            <property name="icon-name">list-add-symbolic</property>
+            <property name="valign">center</property>
+          </object>
+        </child>
 
         <!-- Branches row -->
         <child>
@@ -90,6 +93,5 @@
 
       </object>
     </child>
-
   </template>
 </interface>
