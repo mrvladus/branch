@@ -43,6 +43,11 @@ class RepoPage(Adw.PreferencesGroup):
             if branch != self.current_branch:
                 self.branches_row.add_row(row)
 
+    def clear_branches_row(self):
+        for i in range(1, len(self.branches_rows)):
+            self.branches_row.remove(self.branches_rows[i])
+        self.branches_rows.clear()
+
     def get_branches(self):
         """
         Get all branches.
@@ -83,9 +88,7 @@ class RepoPage(Adw.PreferencesGroup):
         )
         self.clear_merge_row()
         self.update_merge_row()
-        for i in range(1, len(self.branches_rows)):
-            self.branches_row.remove(self.branches_rows[i])
-        self.branches_rows.clear()
+        self.clear_branches_row()
         self.update_branches_row()
         show_message(out)
 
@@ -115,8 +118,11 @@ class RepoPage(Adw.PreferencesGroup):
         """
         Remove all rows from merge row.
         """
-        for row in self.merge_rows:
-            self.merge_row.remove(row)
+        # for row in self.merge_rows:
+        #     self.merge_row.remove(row)
+        # self.merge_rows.clear()
+        for i in range(1, len(self.merge_rows)):
+            self.merge_rows.remove(self.merge_rows[i])
         self.merge_rows.clear()
 
     def on_merge(self, btn: Gtk.Button, branch: str) -> None:
