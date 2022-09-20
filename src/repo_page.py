@@ -121,9 +121,6 @@ class RepoPage(Adw.PreferencesGroup):
         for row in self.merge_rows:
             self.merge_row.remove(row)
         self.merge_rows.clear()
-        for i in range(1, len(self.merge_rows)):
-            self.merge_rows.remove(self.merge_rows[i])
-        self.merge_rows.clear()
 
     def on_merge(self, btn: Gtk.Button, branch: str) -> None:
         """
