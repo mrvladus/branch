@@ -118,9 +118,9 @@ class RepoPage(Adw.PreferencesGroup):
         """
         Remove all rows from merge row.
         """
-        # for row in self.merge_rows:
-        #     self.merge_row.remove(row)
-        # self.merge_rows.clear()
+        for row in self.merge_rows:
+            self.merge_row.remove(row)
+        self.merge_rows.clear()
         for i in range(1, len(self.merge_rows)):
             self.merge_rows.remove(self.merge_rows[i])
         self.merge_rows.clear()
